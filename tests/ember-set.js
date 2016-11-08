@@ -25,4 +25,17 @@ describe('Ember.set transforms', function() {
   it('converts memberExpressionLiterals', () => {
     assert.equal(code('window.foo["bar"] = true;'), `Ember.set(window, 'foo.bar', true);`);
   });
+  
+  it('it throws on literals with periods', () => {
+    let triggered = false;
+
+    try {
+      code('window.foo["bar.baz"] = true;');
+    } catch(e) {
+      assert.equal(e.message, 'Member Expression Literals cannot contain periods.');
+      triggered = true;
+    }
+    
+    assert.ok(triggered);
+  });
 });
