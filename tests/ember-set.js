@@ -37,10 +37,6 @@ describe('Ember.set transforms', function() {
   it('converts thisExpression', () => {
     assert.equal(code('this.foo = true;'), `Ember.set(this, 'foo', true);`);
   });
-  
-  it('converts thisExpression', () => {
-    assert.equal(code('const SYM = Symbol(); this[SYM] = true;'), `Ember.set(this, ???, true);`);
-  });
 
   it('converts memberExpressionLiterals', () => {
     assert.equal(code('window.foo["bar"] = true;'), `Ember.set(window, 'foo.bar', true);`);
