@@ -7,12 +7,12 @@ module.exports = function({ Plugin, types }) {
 
   return new Plugin('babel-plugin-ember-auto-accessor', {
     visitor: {
-      AssignmentExpression(node) {
-        console.log(node)
+      AssignmentExpression(node, parent, scope, file) {
+        console.info(node);
 
         return node;
       },
-      CallExpression(node) {
+      CallExpression(node, parent, scope, file) {
         return node;
       }
     }
