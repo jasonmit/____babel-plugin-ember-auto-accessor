@@ -1,0 +1,25 @@
+{
+  "name": "babel-plugin-ember-auto-accessor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive tests/",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [
+    "babel-plugin",
+    "babel-plugin-ember-auto-accessor"
+  ],
+  "dependencies": {
+    "debug": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.38",
+    "babel-core": "^5.8.38",
+    "babylon": "^5.8.38",
+    "mocha": "^3.1.2"
+  }
+}
