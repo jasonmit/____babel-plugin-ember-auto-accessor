@@ -7,7 +7,9 @@ const plugin = require('../');
 
 function code(program) {
   return babel.transform(program, {
-    plugins: [plugin]
+    blacklist: ['useStrict'],
+    plugins: [plugin],
+    compact: true
   }).code;
 }
 

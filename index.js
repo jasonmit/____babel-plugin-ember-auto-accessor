@@ -1,10 +1,5 @@
 'use strict';
 
-const debug = require('debug');
-
-const call = debug('call');
-const assignment = debug('assignment');
-
 module.exports = function({ Plugin, types }) {
   function flatten(node) {
     // walk memberExpression building up the keys
@@ -15,6 +10,9 @@ module.exports = function({ Plugin, types }) {
       AssignmentExpression(node) {
         console.log(node)
 
+        return node;
+      },
+      CallExpression(node) {
         return node;
       }
     }
