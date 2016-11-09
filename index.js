@@ -38,7 +38,7 @@ module.exports = function({ Plugin, types:t }) {
     visitor: {
       AssignmentExpression(node, parent, scope, file) {
         if (seen.has(node)) {
-       		return;
+          return;
         }
 
         const { left, right } = node;
@@ -64,7 +64,7 @@ module.exports = function({ Plugin, types:t }) {
 
           if (t.isMemberExpression(current)) {
             if (current.computed) {
-              throw new Error('computeds within a MemberExpression is not yet supported');
+              throw new Error('computeds within a MemberExpression are not yet supported');
             }
 
             target = current.object;
