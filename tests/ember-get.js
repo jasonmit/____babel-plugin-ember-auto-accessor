@@ -1,28 +1,46 @@
 'use strict';
 
-const babel = require('babel');
-const assert = require('assert');
+const { transform } = require('babel');
+const { equal } = require('assert');
 
 const plugin = require('../');
 
 function code(program) {
-  return babel.transform(program, {
+  const transformed = transform(program, {
     blacklist: ['useStrict'],
     plugins: [plugin],
     compact: true
-  }).code;
+  });
+
+  return transformed.code;
 }
 
-describe('Ember.get transforms', function() {
+describe.only('Ember.get transforms', function() {
   it('converts thisExpression', () => {
-    assert.equal(code('this.firstName;'), `Ember.get(this, 'firstName');`);
+    equal(code('this.firstName;'), `Ember.get(this,"firstName");`);
+  });
+
+  it('converts deep thisExpression', () => {
+    equal(code('this.person.firstName;'), `Ember.get(this,"person.firstName");`);
   });
 
   it('converts expression', () => {
-    assert.equal(code('window.firstName;'), `Ember.get(window, 'firstName');`);
+    equal(code('window.firstName;'), `Ember.get(window,"firstName");`);
   });
 
   it('converts deeply nested', () => {
-    assert.equal(code('window.person.firstName;'), `Ember.get(window, 'persona.firstName');`);
+    equal(code('window.person.firstName;'), `Ember.get(window,"person.firstName");`);
+  });
+
+  it('skips on callExpression', () => {
+    equal(code('window.foo().bar;'), `window.foo().bar;`);
+  });
+
+  it.skip('handles computed path', () => {
+    equal(code('window[dynamicPath];'), `Ember.set(window,dynamicPath);`);
+  });
+
+  it.skip('handles complex computed paths', () => {
+    equal(code('window[dynamicPath].foo;'), `Ember.set(window,dynamicPath+'.foo');`);
   });
 });
