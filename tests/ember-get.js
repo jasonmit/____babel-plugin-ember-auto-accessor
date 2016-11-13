@@ -15,7 +15,7 @@ function code(program) {
   return transformed.code;
 }
 
-describe.only('Ember.get transforms', function() {
+describe.skip('Ember.get transforms', function() {
   it('converts thisExpression', () => {
     equal(code('this.firstName;'), `Ember.get(this,"firstName");`);
   });
